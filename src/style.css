@@ -1,20 +1,38 @@
+:root {
+    --color-primario: #F9F8FA;
+    --color-secundario: #2D1B2D;
+    --color-tarjetas: #ffffff;
+    --color-texto: #222222;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: var(--color-secundario);
+    color: var(--color-primario);
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: var(--color-primario);
+}
+
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: var(--color-primario);
 }
 
-#form {
-    background-color: lightgray;
-    justify-content: center;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-radius: 10px;
-}
 
-button {
-    margin: auto;
-    width: 100px;
-}
+/* Encabezado / Módulos oscuros: #2D1B2D (Ciruela oscuro)
+
+Fondo de pantalla: #F9F8FA (Gris rosáceo extremadamente claro)
+
+Tarjetas y contenedores: #FFFFFF (Blanco puro)
+
+Acentos (Notificaciones / Alertas): #FF5A5F (Coral / Rojo vivo)
+
+Textos principales: #222222 (Gris oscuro neutro) */

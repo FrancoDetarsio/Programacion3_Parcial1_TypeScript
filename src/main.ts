@@ -21,7 +21,7 @@ const scriptValidation = async (currentPage: string): Promise<void> => {
     
     switch (true) {                                             // Evalúa condición verdadera
         case currentPage.includes("login"):                     // Si el path actual contiene login
-            await import('./pages/auth/login/login');           // se importa el script correspondiente
+            await import("./pages/auth/login/login");           // se importa el script correspondiente
             break;
 
         case currentPage.includes("registro"):
@@ -44,6 +44,14 @@ const scriptValidation = async (currentPage: string): Promise<void> => {
                 "/src/pages/admin/home/home.html",
                 "client"
             );
+
+            // Luego de la autentificación derivamos al script correspondiente
+            if (currentPage.includes("home")) {
+                await import("./pages/client/home/home");
+            } else if (currentPage.includes("cart")) {
+                await import("./pages/client/cart/cart");
+            }
+            
             break;
     }
 }
