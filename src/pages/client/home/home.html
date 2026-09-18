@@ -9,19 +9,19 @@
 
 <body>
     <header>
-        <h1 class="title">Food Store 🍔</h1>
+        <h1 class="title">Food Store</h1>
         <button id="logoutButton">Logout</button>
     </header>
+
     <div class="layout">
-        <nav>
-            <h3>Categorías</h3>
-            <ul class="category_list" id="category_list">
-                <li>Todos los Productos</li>
-            </ul>
-        </nav>
-        <main>
+        <div class="layout-categories">
+            <h2 class="categories-title">Categorías</h2>
+            <nav class="categories-container" id="categories"></nav>
+        </div>
+
+        <main class="layout-main">
             <input type="text" class="buscador" id="buscador" placeholder="Buscar Producto" autocomplete="off">
-            <div class="product_grid" id="product_grid"></div>
+            <div class="products_grid" id="products_grid"></div>
         </main>
     </div>
     <footer>Todos los derechos reservados</footer>
