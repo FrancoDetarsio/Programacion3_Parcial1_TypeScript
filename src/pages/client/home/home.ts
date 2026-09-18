@@ -18,7 +18,7 @@ const ALL_CATEGORIES: ICategory = {
     createdAt: ""
 };
 const categories: ICategory[] = [ALL_CATEGORIES, ...getCategories()];
-let activeCategory: ICategory = ALL_CATEGORIES;
+let activeCategory: number = ALL_CATEGORIES.id;
 
 
 /**
@@ -35,11 +35,11 @@ const categoryDrawing = (): void => {
 
         // Se asigna clase dependiendo si es la categoria activa actual o no
         button.className = 
-        category === activeCategory ? "category-btn--active" : "category-btn--disabled";
+        category.id === activeCategory ? "category-btn--active" : "category-btn--disabled";
 
         // Agregamos evento
         button.addEventListener("click", () => {
-            activeCategory = category;
+            activeCategory = category.id;
             categoryDrawing();
             productDrawing();
         })
@@ -51,44 +51,78 @@ const categoryDrawing = (): void => {
 const productDrawing = (): void => {
     products_grid.innerHTML = "";
 
-    /*
-    Antes de renderizar realizamos un filtrado de productos con 3 comprobaciónes:
-    - si hay algún filtro por categoría activado
-    - si el producto no se encuentra con atributo eliminado = true
-    - si concuerda con lo que se tipea en el buscador 
-    */
-    const filteredProducts: IProduct[] = PRODUCTS.filter((product) => {
+    const filteredProducts: IProduct[] = productFilter(PRODUCTS); 
 
-        const categoryMatch: boolean = product.categorias.includes(activeCategory) || activeCategory == ALL_CATEGORIES;
+    filteredProducts.forEach((product) => {
+        products_grid.appendChild(cardCreation(product));
+    });
+};
+
+/**
+ * Crea lista de productos filtrando con 3 comprobaciónes:
+ * - si hay algún filtro por categoría activado
+ * - si el producto no se encuentra con atributo eliminado = true
+ * - si concuerda con lo que se tipea en el buscador 
+ * @param products 
+ * @returns filteredProducts: IProducts[]
+ */
+const productFilter = ((products: IProduct[]): IProduct[] => {
+    const filteredProducts: IProduct[] = products.filter((product) => {
+
+        const categoryMatch: boolean = product.categorias.some((category) => category.id === activeCategory) || activeCategory == ALL_CATEGORIES.id;
 
         const nameMatch: boolean = product.nombre.toLocaleLowerCase().includes(buscador.value.toLocaleLowerCase());
 
         return categoryMatch && !product.eliminado && nameMatch
     });
+    
+    return filteredProducts;
+});
 
-    filteredProducts.forEach((product) => {
-        const productCard = document.createElement("div");
-        productCard.className = "productCard";
+const cardCreation = ((product: IProduct): HTMLElement => {
+    const productCard = document.createElement("div");
+    productCard.className = "productCard";
 
-        productCard.innerHTML = `
+    productCard.innerHTML = `
             <img class="card-img" src="${product.imagen}" alt="${product.nombre}"/>
             <div class="card-info">
                 <h3 class="card-nombre">${product.nombre}</h3>
                 <p class="card_despription">${product.descripcion}</p>
                 <div class="card-price_btn">
                     <p class="card-price">$${product.precio}</p>
-                    <button class="card-btn" id="card-btn">+ Agregar</button>
                 </div>
             </div>
         `;
 
-        products_grid.appendChild(productCard);
-    });
-};
+        const toAddBtn = productCard.querySelector<HTMLElement>(".card-price_btn")!;
+        toAddBtn.appendChild(cardBtnCreate(product));
+
+        return productCard;
+});
+
+const cardBtnCreate = ((product: IProduct): HTMLButtonElement => {
+    const cardBtn = document.createElement("button");
+
+    if (product.disponible) {
+        cardBtn.className = "card-btn--active";
+        cardBtn.innerText = "+ Agregar";
+        cardBtn.addEventListener("click", () => {
+            //addToCart(product);
+        })
+    } else {
+        cardBtn.className = "card-btn--disabled";
+        cardBtn.innerText = "No disponible";
+        cardBtn.disabled = true;
+    }
+
+    return cardBtn
+});
+
 
 buscador.addEventListener("input", () => {
     productDrawing();
 });
+
 
 /* -- Llamado a funciones -- */
 categoryDrawing();

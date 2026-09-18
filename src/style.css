@@ -115,6 +115,9 @@ header {
 }
 
 .productCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     min-width: 200px;
     background-color: var(--color-tarjetas);
     border-radius: 10px;
@@ -146,14 +149,16 @@ header {
 .card-price_btn {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0.5rem;
 }
 
 .card-price {
     font-size: large;
+    color: var(--color-secundario);
 }
 
-.card-btn {
+.card-price_btn button {
     padding: 0.5rem;
     border: none;
     border-radius: 15px;
@@ -161,7 +166,18 @@ header {
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.185);
 }
 
-.card-btn:hover {
+.card-btn--active {
     background-color: var(--color-secundario);
+    color: var(--color-primario);
+}
+
+.card-btn--active:hover {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+    outline: 1px solid var(--color-secundario);
+}
+
+.card-btn--disabled {
+    background-color: var(--color-notificaciones);
     color: var(--color-primario);
 }
