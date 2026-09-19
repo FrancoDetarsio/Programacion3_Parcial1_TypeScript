@@ -11,13 +11,20 @@
     <header>
         <h1 class="title">Food Store</h1>
         <div class="header-utils">
-            <a href="../home/home.html">Tienda</a>
-            <button id="logoutButton">Logout</button>
+            <a href="../home/home.html" class="tiendaBtn">Tienda</a>
+            <button class="logoutButton" id="logoutButton">Logout</button>
         </div>
     </header>
 
-    <main>
-        <h2>Carrito</h2>
+    <main class="cart-layout">
+        <h2 class="cart-title">Carrito</h2>
+        <div class="cart">
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-checkout" id="cart-checkout">
+                <h3 class="cart-checkout_title">Checkout</h3>
+                <div class="cart-checkout_items" id="cart-checkout_items"></div>
+            </div>
+        </div>
     </main>
 
     <footer>Todos los derechos reservados</footer>

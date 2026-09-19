@@ -20,9 +20,10 @@ body {
 header {
     width: 100%;
     background-color: var(--color-secundario);
-    color: var(--color-primario);
+    text-decoration: none;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
     box-shadow: 0 0 5px 1px black;
     position: sticky;
@@ -33,6 +34,116 @@ header {
     color: var(--color-primario);
 }
 
+.header-utils {
+    display: flex;
+    gap: 2rem;
+}
+
+.cartLink {
+    color: var(--color-primario);
+    text-decoration: none;
+    display: flex;
+    gap: 0.3rem;
+    font-size: larger;
+}
+
+.cartLink-counter {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    border-radius: 50px;
+    width: 15px;
+    font-size: large;
+    text-align: center;
+    position: inherit;
+    font-weight: 600;
+}
+
+.cartLink:hover {
+    color: var(--color-notificaciones);
+}
+
+.tiendaBtn {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-size: larger;
+}
+
+.tiendaBtn:hover {
+    color: var(--color-notificaciones);
+}
+
+.logoutButton {
+    color: var(--color-primario);
+    background-color: transparent;
+    border: none;
+    font-size: larger;
+}
+
+.logoutButton:hover {
+    color: var(--color-notificaciones);
+}
+/* =====  LOGIN  ===== */
+
+.login-layout {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.login-title {
+    color: var(--color-secundario);
+    font-size: xx-large;
+}
+
+.login-form {
+    background-color: var(--color-tarjetas);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    justify-content: space-around;
+    align-content: first baseline;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.185);
+}
+
+.login-form label {
+    margin: 0.3rem;
+    font-weight: bold;
+    color: var(--color-secundario)
+}
+
+.login-form input {
+    padding: 0.3rem;
+    background-color: var(--color-primario);
+    border: none;
+    border-radius: 30px;
+    border-bottom: 2px solid var(--color-secundario);
+    text-align: center;
+}
+
+.login-btn {
+    align-self: center;
+    min-width: 200px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    font-size: large;
+    font-weight: 600;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.185);
+    color: var(--color-secundario);
+    background-color: var(--color-primario);
+}
+
+.login-btn:hover {
+    outline: 1px solid var(--color-secundario);
+}
+
+
+/* =====  MAIN LAYOUT  ===== */
 .layout {
     display: flex;
 }
@@ -181,3 +292,5 @@ header {
     background-color: var(--color-notificaciones);
     color: var(--color-primario);
 }
+
+/* =====  FOOTER  ===== */

@@ -1,12 +1,15 @@
 import { PRODUCTS, getCategories } from "../../../data/data";
 import type { ICategory } from "../../../types/category";
 import type { IProduct } from "../../../types/product";
+import { addToCart } from "../../../utils/cart";
+import { getCartItems } from "../../../utils/cart";
 
 
 /* -- Elementos del DOM -- */
 const nav = document.querySelector<HTMLElement>("#categories")!;
 const products_grid = document.querySelector<HTMLDivElement>("#products_grid")!;
 const buscador = document.querySelector<HTMLInputElement>("#buscador")!;
+const cartLink = document.querySelector<HTMLElement>("#cartLink")!;
 
 /* -- Variables Globales -- */
 // constante utilizada para poder filtrar por todas las categorías
@@ -46,6 +49,7 @@ const categoryDrawing = (): void => {
 
         nav.appendChild(button);
     })
+
 };
 
 const productDrawing = (): void => {
@@ -107,7 +111,8 @@ const cardBtnCreate = ((product: IProduct): HTMLButtonElement => {
         cardBtn.className = "card-btn--active";
         cardBtn.innerText = "+ Agregar";
         cardBtn.addEventListener("click", () => {
-            //addToCart(product);
+            addToCart(product, true);
+            cartLinkUpdate();
         })
     } else {
         cardBtn.className = "card-btn--disabled";
@@ -123,7 +128,26 @@ buscador.addEventListener("input", () => {
     productDrawing();
 });
 
+const cartLinkUpdate = (): void => {
+    cartLink.innerHTML = ``;
+
+    if (getCartItems().length !== 0) {
+        let totalItems: number = 0;
+        getCartItems().forEach(item => {
+            totalItems += item.cantidad;
+        })
+        cartLink.innerHTML = `Carrito <p class="cartLink-counter">${totalItems}</p>`
+    } else {
+        cartLink.innerHTML = `Carrito`;
+
+    }
+};
+
 
 /* -- Llamado a funciones -- */
 categoryDrawing();
 productDrawing();
+cartLinkUpdate();
+
+// To DO: 
+// - Si no hay coincidencias al tipear, se debe informar visualmente al usuario
