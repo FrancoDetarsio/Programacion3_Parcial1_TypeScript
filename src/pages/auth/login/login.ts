@@ -3,7 +3,7 @@ import { saveUser } from "../../../utils/localStorage";
 import { verifyUserLogin } from "../../../utils/auth";
 import { users } from "../registro/registro"; // Solo para pruebas con ususarios creados
 
-const form = document.getElementById("form") as HTMLFormElement;
+const form = document.getElementById("form-login") as HTMLFormElement;
 const inputEmail = document.getElementById("email") as HTMLInputElement;
 const inputPassword = document.getElementById("password") as HTMLInputElement;
 
