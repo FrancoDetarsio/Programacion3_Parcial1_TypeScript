@@ -18,6 +18,10 @@ const cartItemsDrawing = () => {
         itemsConteiner.appendChild(card);
     })
 
+    if (getCartItems().length === 0) {
+        itemsConteiner.innerHTML = `<p class="empty-cart">No hay productos agregados.</p>`;
+    }
+
     checkoutDrawing();
 }
 
@@ -27,14 +31,17 @@ const createItemCard = (item: ICartItem): HTMLElement => {
         <img class="cart-img" src="${item.imagen}" alt="${item.nombre}"/>
         <div class="cart-info">
             <h3 class="cart-nombre">${item.nombre}</h3>
-            <div class="cart-price_btn">
-                <p class="cart-price">Precio: $${item.precio}</p>
-            </div>
+            <p class="cart-price">Precio: $${item.precio}</p>
         </div>
     `;
 
-    itemCard.appendChild(cartBtnsCreate(item));
-    itemCard.appendChild(itemSubTotal(item));
+    const btnsPriceContainer = document.createElement("div");
+    btnsPriceContainer.className = "cart-price_btn";
+
+    btnsPriceContainer.appendChild(cartBtnsCreate(item));
+    btnsPriceContainer.appendChild(itemSubTotal(item));
+
+    itemCard.appendChild(btnsPriceContainer)
 
     return itemCard;
 };
@@ -46,7 +53,9 @@ const cartBtnsCreate = (item: ICartItem): HTMLElement => {
     const minusBtn = document.createElement("button");
     const plusBtn = document.createElement("button");
     minusBtn.textContent = "-";
+    minusBtn.className = "cart-minusBtn";
     plusBtn.textContent = "+";
+    plusBtn.className = "cart-plusBtn";
     
     minusBtn.addEventListener("click", () => {
         quantUpdate(item, false);
@@ -59,6 +68,7 @@ const cartBtnsCreate = (item: ICartItem): HTMLElement => {
 
     const counter = document.createElement("div");
     counter.innerText = `${item.cantidad}`;
+    counter.className = "cart-counter";
 
 
     cartBtnsContainer.appendChild(minusBtn);
@@ -71,13 +81,14 @@ const cartBtnsCreate = (item: ICartItem): HTMLElement => {
 const itemSubTotal = (item: ICartItem): HTMLElement => {
     const subTotal = document.createElement("p");
     subTotal.innerText = `Subtotal: $${item.cantidad * item.precio}`;
+    subTotal.className = "cart-subtotal"
     return subTotal;
 };
 
 const checkoutDrawing = (): void => {
     checkoutContainer.innerHTML = `
         <p class="cart-checkout_items-total">$${cartTotal()}</p>
-        <button class"cart-checkout_items-btn" disabled title="Funcion no disponible">Finalizar Compra</>
+        <button class="cart-checkout_items-btn" disabled title="Funcion no disponible">Finalizar Compra</>
     `
 }
 

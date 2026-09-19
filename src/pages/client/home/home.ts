@@ -57,9 +57,14 @@ const productDrawing = (): void => {
 
     const filteredProducts: IProduct[] = productFilter(PRODUCTS); 
 
-    filteredProducts.forEach((product) => {
+    if (filteredProducts.length !== 0) {
+        filteredProducts.forEach((product) => {
         products_grid.appendChild(cardCreation(product));
-    });
+        });
+    } else {
+        products_grid.innerHTML = `<p class="no-products-found">No se encontrarón artículos</p>`;
+    }
+
 };
 
 /**
