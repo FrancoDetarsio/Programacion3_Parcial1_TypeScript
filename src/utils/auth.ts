@@ -37,5 +37,6 @@ export const logout = () => {
 };
 
 export const verifyUserLogin = (loginEmail: string, loginPassword: string): IUser | undefined => {
-  return users.find(user => user.email === loginEmail && user.password === loginPassword);
+  return users.find(user => user.email.toLocaleLowerCase() === loginEmail.toLocaleLowerCase() && 
+  user.password === loginPassword);
 }
