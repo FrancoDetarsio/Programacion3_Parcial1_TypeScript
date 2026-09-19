@@ -104,6 +104,7 @@ header {
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
+    flex: 1 0 auto;
 }
 
 .login-title {
@@ -149,6 +150,7 @@ header {
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.185);
     color: var(--color-secundario);
     background-color: var(--color-primario);
+    border-bottom: 2px solid var(--color-secundario);
 }
 
 .login-btn:hover {
@@ -165,6 +167,7 @@ header {
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
+    flex: 1 0 auto;
 }
 
 .register-title {
@@ -210,6 +213,7 @@ header {
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.185);
     color: var(--color-secundario);
     background-color: var(--color-primario);
+    border-bottom: 2px solid var(--color-secundario);
 }
 
 .register-btn:hover {

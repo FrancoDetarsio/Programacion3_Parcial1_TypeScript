@@ -1,17 +1,22 @@
-// Lógica reutilizable: las funciones del carrito (agregar, actualizar cantidad, obtener ítems,
-// calcular total) van en src/utils/cart.ts; las vistas solo renderizan y escuchan eventos.
-
+/* == Script de Lógica == */
 import { PRODUCTS } from "../data/data";
 import type { IProduct } from "../types/product";
 import type { ICartItem } from "../types/product";
 
-// Recuperación de datos localStorage
+/* -- Recuperación de datos localStorage -- */
 const savedCart = localStorage.getItem("cart") || "[]"; // si "cart" esta vacío se retorna un array vacío
 let productsSaved: ICartItem[] = JSON.parse(savedCart); // convertimos el string retornado a un objeto ICartItem[]
 export let getCartItems = (): ICartItem[] => productsSaved; // constante que utiliza el cart.ts para renderizar la vista
 
-
-
+/**
+ * recibe un producto y un booleano cofirmando si se quiere agregar o
+ * quitar un elemento al carrito.
+ * si se desea agregar se verifica:
+ * - si el carro esta vacio se agrega el producto
+ * - si el carro ya contiene el producto, se le suma una unidad al mismo
+ * @param product 
+ * @param update 
+ */
 export const addToCart = ((product: IProduct, update: boolean): void => {
 
     const itemToAdd = productsSaved.find(item => item.id === product.id);
@@ -22,7 +27,6 @@ export const addToCart = ((product: IProduct, update: boolean): void => {
         productsSaved.push(createICartItem(product));
         saveCart(productsSaved);
     }
-
 });
 
 /**
@@ -68,18 +72,10 @@ export const quantUpdate = ((cartItem: ICartItem, update: boolean) => {
     saveCart(productsSaved);
 });
 
+/**
+ * recibe la lista de productos actualizada lista para guardar en memoria
+ * @param savedProducts 
+ */
 const saveCart = (savedProducts: ICartItem[]): void => {
     localStorage.setItem("cart", JSON.stringify(savedProducts))
 }
-
-// To Do
-// ● Al agregar un producto, este debe guardarse en localStorage bajo la clave "cart".
-// ● Si el producto ya fue agregado previamente, debe actualizarse su cantidad en lugar de duplicarse como ítem separado.
-// ● Debe existir algún indicador visual de que la acción se realizó correctamente.
-// ● Debe existir una vista o página de carrito accesible desde la navegación.
-// ● En ella deben mostrarse, como mínimo: nombre del producto, precio y cantidad.
-// ● Si el carrito está vacío, debe mostrarse un mensaje indicándolo.
-// ● La información debe recuperarse desde localStorage (clave "cart").
-// ● En la vista del carrito debe mostrarse el total general.
-// ● El total debe calcularse como la suma de todos los subtotales de los productos agregados.
-// ● El valor debe actualizarse correctamente según el contenido almacenado.

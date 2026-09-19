@@ -1,6 +1,7 @@
 import { navigate } from "../../../utils/navigate";
 import { saveUser } from "../../../utils/localStorage";
 import { verifyUserLogin } from "../../../utils/auth";
+import { testUsers } from "../registro/registro";
 
 const form = document.getElementById("form") as HTMLFormElement;
 const inputEmail = document.getElementById("email") as HTMLInputElement;
@@ -25,3 +26,5 @@ form.addEventListener("submit", (e: SubmitEvent) => {
     alert("email o contraseña inválidos.")
   }
 });
+
+testUsers(); // función de autocargado de perfiles para pruebas

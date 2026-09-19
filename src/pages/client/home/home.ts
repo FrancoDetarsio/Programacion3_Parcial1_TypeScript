@@ -24,6 +24,7 @@ const categories: ICategory[] = [ALL_CATEGORIES, ...getCategories()];
 let activeCategory: number = ALL_CATEGORIES.id;
 
 
+/* -- Declaración de Funciónes -- */
 /**
  * Función encargada de renderizar todas las categorias disponibles,
  * además designa y aplica estilo a una categoria selecionada mediante click
@@ -52,6 +53,11 @@ const categoryDrawing = (): void => {
 
 };
 
+/**
+ * Método encargado de renderizar las tarjetas de cada producto,
+ * delega funcionalidades de creacion y filtrado
+ * si no hay productos se notifica al usuario
+ */
 const productDrawing = (): void => {
     products_grid.innerHTML = "";
 
@@ -88,6 +94,11 @@ const productFilter = ((products: IProduct[]): IProduct[] => {
     return filteredProducts;
 });
 
+/**
+ * Recibe un producto como parámetro y lo convierte en un div para renderizar
+ * @param product 
+ * @returns div = productCard 
+ */
 const cardCreation = ((product: IProduct): HTMLElement => {
     const productCard = document.createElement("div");
     productCard.className = "productCard";
@@ -109,6 +120,12 @@ const cardCreation = ((product: IProduct): HTMLElement => {
         return productCard;
 });
 
+/**
+ * Se crea un botón para agregar producto al carrito
+ * si el producto.disponible = false desactiva el botón y lo notifica
+ * @param product 
+ * @returns card-btn--active | card-btn--disabled
+ */
 const cardBtnCreate = ((product: IProduct): HTMLButtonElement => {
     const cardBtn = document.createElement("button");
 
@@ -128,11 +145,18 @@ const cardBtnCreate = ((product: IProduct): HTMLButtonElement => {
     return cardBtn
 });
 
-
+/**
+ * por cada valor ingresado en el buscador se renderizara los productos
+ * ofreciendo filtrado en tiempo real
+ */
 buscador.addEventListener("input", () => {
     productDrawing();
 });
 
+/**
+ * Se encarga agregar/modificar un contador mostrando la cantidad actual
+ * de items en el carrito
+ */
 const cartLinkUpdate = (): void => {
     cartLink.innerHTML = ``;
 
@@ -144,7 +168,6 @@ const cartLinkUpdate = (): void => {
         cartLink.innerHTML = `Carrito <p class="cartLink-counter">${totalItems}</p>`
     } else {
         cartLink.innerHTML = `Carrito`;
-
     }
 };
 
@@ -153,6 +176,3 @@ const cartLinkUpdate = (): void => {
 categoryDrawing();
 productDrawing();
 cartLinkUpdate();
-
-// To DO: 
-// - Si no hay coincidencias al tipear, se debe informar visualmente al usuario
