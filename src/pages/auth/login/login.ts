@@ -1,13 +1,13 @@
 import { navigate } from "../../../utils/navigate";
 import { saveUser } from "../../../utils/localStorage";
 import { verifyUserLogin } from "../../../utils/auth";
-import { users } from "../registro/registro"; // Solo para pruebas con ususarios creados
+import { testUsers } from "../registro/registro"; // Solo para pruebas con ususarios creados
 
-const form = document.getElementById("form-login") as HTMLFormElement;
+const form = document.querySelector<HTMLElement>("#form-login");
 const inputEmail = document.getElementById("email") as HTMLInputElement;
 const inputPassword = document.getElementById("password") as HTMLInputElement;
 
-form.addEventListener("submit", (e: SubmitEvent) => {
+form?.addEventListener("submit", (e: SubmitEvent) => {
   e.preventDefault();
 
   const valueEmail = inputEmail.value;
@@ -27,34 +27,4 @@ form.addEventListener("submit", (e: SubmitEvent) => {
   }
 });
 
-/* -- Usuarios de Prueba -- */
-/**
- * función para facilitar pruebas de testeo.
- * inicializa automaticamente 2 usuarios:
- * - uno con rol "client"
- * - uno con rol "admin"
- */
-const testUsers = (): void => {
-
-    if (users.length === 0) {
-                const newUser1: IUser = {
-        email: "client@gmail.com",
-        password: "client",
-        role: "client",
-        loggedIn: false
-    }
-
-        const newUser2: IUser = {
-        email: "admin@gmail.com",
-        password: "admin",
-        role: "admin",
-        loggedIn: false
-    }
-
-    users.push(newUser1);
-    users.push(newUser2);
-
-    localStorage.setItem("users", JSON.stringify(users));
-    }
-}
-testUsers();
+testUsers(); // funcion con ususarios precargados para pruebas

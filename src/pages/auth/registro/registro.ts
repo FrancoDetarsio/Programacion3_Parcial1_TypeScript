@@ -2,15 +2,15 @@ import type { IUser } from "../../../types/IUser";
 import { navigate } from "../../../utils/navigate";
 
 /* Elementos del DOM -- */
-const form = document.getElementById("form-register") as HTMLFormElement;
+const form = document.querySelector<HTMLElement>("#form-register")!;
 const inputEmail = document.getElementById("email") as HTMLInputElement;
 const inputPassword = document.getElementById("password") as HTMLInputElement;
 
 // Recuperación de datos localStorage
 const savedUsers = localStorage.getItem("users") || "[]"; // si "users" esta vacío se retorna un array vacío
-export const users: IUser[] = JSON.parse(savedUsers); // convertimos el string retornado a un objeto IUser[]
+const users: IUser[] = JSON.parse(savedUsers); // convertimos el string retornado a un objeto IUser[]
 
-form.addEventListener("submit", (e: SubmitEvent) => {
+form?.addEventListener("submit", (e: SubmitEvent) => {
     e.preventDefault(); // El formulario no se recarga
     
     const valueEmail: string = inputEmail.value;
@@ -38,3 +38,34 @@ form.addEventListener("submit", (e: SubmitEvent) => {
     alert("Usuario creado, redireccionando a login.")
     navigate("/src/pages/auth/login/login.html"); // volvemos al login
 })
+
+/* -- Usuarios de Prueba -- */
+/**
+ * función para facilitar pruebas de testeo.
+ * inicializa automaticamente 2 usuarios:
+ * - uno con rol "client"
+ * - uno con rol "admin"
+ */
+export const testUsers = (): void => {
+
+    if (users.length === 0) {
+                const newUser1: IUser = {
+        email: "client@gmail.com",
+        password: "client",
+        role: "client",
+        loggedIn: false
+    }
+
+        const newUser2: IUser = {
+        email: "admin@gmail.com",
+        password: "admin",
+        role: "admin",
+        loggedIn: false
+    }
+
+    users.push(newUser1);
+    users.push(newUser2);
+
+    localStorage.setItem("users", JSON.stringify(users));
+    }
+}
